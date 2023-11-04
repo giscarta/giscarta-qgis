@@ -33,8 +33,10 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from ..constants import (
-    AUTH_STYLE
+    AUTH_STYLE_MAC, AUTH_STYLE_WIN
 )
+
+from sys import platform
 
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
@@ -95,6 +97,11 @@ class GisCartaQGISDialog(QtWidgets.QDialog, FORM_CLASS):
         # self.label.setStyleSheet("font-size: 72px;font-weight:bold; color:black; background-color:rgba(0,0,0,.0)")
         self.label_logo.setStyleSheet("background-color:rgba(31,46,65,1.0)")
         # print(AUTH_STYLE)
-        self.setStyleSheet(AUTH_STYLE)
         
+        
+        if platform == "win32":
+            self.setStyleSheet(AUTH_STYLE_WIN)
+        else:
+            self.setStyleSheet(AUTH_STYLE_MAC)
+
         self.setupUi(self)
