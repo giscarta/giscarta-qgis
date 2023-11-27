@@ -34,7 +34,7 @@ from PyQt5.QtGui import QPixmap, QIcon
 root_path = Path(__file__).parents[1]
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     root_path, 'ui', 'giscarta_dialog_layers.ui'))
-
+from sys import platform
 
 class GisCartaQGISDialogLayers(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
@@ -55,7 +55,8 @@ class GisCartaQGISDialogLayers(QtWidgets.QDialog, FORM_CLASS):
         wtPixmap = QPixmap(imgPath_logo_mini)
         icon.addPixmap(wtPixmap)
         self.setWindowIcon(icon)
-        self.setStyleSheet('background-color: #273E53; color: #E9ECEE;')
+        if platform == 'darwin':
+            self.setStyleSheet('background-color: #273E53; color: #E9ECEE; alternate-background-color: #35485d;')
         #print(__file__)
         
         self.setupUi(self)
