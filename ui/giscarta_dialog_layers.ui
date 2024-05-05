@@ -232,7 +232,7 @@
         </size>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;privacy_policy&quot; style=&quot;color:#C9CFD4&quot;&gt;Privacy Policy&lt;/a&gt; •  &lt;a href=&quot;terms_of_use&quot; style=&quot;color:#C9CFD4&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;privacy_policy&quot; style=&quot;text-decoration: none;&quot;&gt;Privacy Policy&lt;/a&gt; •  &lt;a href=&quot;terms_of_use&quot; style=&quot;text-decoration: none;&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>

@@ -57,3 +57,9 @@ QLineEdit {
 }
 
 """
+
+LINK_STYLE = """
+a {
+    color: blue;
+}
+"""
