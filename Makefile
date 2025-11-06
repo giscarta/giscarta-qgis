@@ -1,12 +1,12 @@
 #/***************************************************************************
 # GisCartaQGIS
 #
-# Manage your GisCarta data
+# Manage your GISCARTA data
 #							 -------------------
 #		begin				: 2023-09-07
 #		git sha				: $Format:%H$
-#		copyright			: (C) 2023 by GisCarta
-#		email				: info@giscarta.com
+#		copyright			: (C) 2023 by GISCARTA
+#		email				: support@giscarta.com
 # ***************************************************************************/
 #
 #/***************************************************************************
@@ -164,7 +164,7 @@ package: compile
 	# This requires use of git (your plugin development directory must be a
 	# git repository).
 	# To use, pass a valid commit or tag as follows:
-	#   make package VERSION=Version_0.3.2
+	#   make package VERSION=Version_1.3.1
 	@echo
 	@echo "------------------------------------"
 	@echo "Exporting plugin to zip package.	"

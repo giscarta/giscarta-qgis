@@ -8,9 +8,9 @@
 
 """
 
-__author__ = 'info@giscarta.com'
+__author__ = 'support@giscarta.com'
 __date__ = '2023-09-07'
-__copyright__ = 'Copyright 2023, GisCarta'
+__copyright__ = 'Copyright 2023, GISCARTA'
 
 import unittest
 

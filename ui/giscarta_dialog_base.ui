@@ -10,10 +10,16 @@
     <height>282</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>1</horstretch>
+    <verstretch>1</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
-    <width>541</width>
-    <height>282</height>
+    <width>0</width>
+    <height>0</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -22,8 +28,31 @@
     <height>282</height>
    </size>
   </property>
+  <property name="sizeIncrement">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>1</width>
+    <height>1</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <stylestrategy>PreferDefault</stylestrategy>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>GisCarta - Login</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
   </property>
   <widget class="QLineEdit" name="domain">
    <property name="geometry">
@@ -45,9 +74,6 @@
      <width>183</width>
      <height>24</height>
     </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color:white;</string>
    </property>
    <property name="text">
     <string>https://map.giscarta.com</string>
@@ -77,16 +103,13 @@
      <height>24</height>
     </size>
    </property>
-   <property name="styleSheet">
-    <string notr="true">color:white;</string>
-   </property>
   </widget>
   <widget class="QLabel" name="label_username">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>80</y>
-     <width>62</width>
+     <width>82</width>
      <height>21</height>
     </rect>
    </property>
@@ -98,12 +121,9 @@
    </property>
    <property name="maximumSize">
     <size>
-     <width>62</width>
+     <width>82</width>
      <height>16777215</height>
     </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
    </property>
    <property name="text">
     <string>Username</string>
@@ -132,12 +152,9 @@
    </property>
    <property name="maximumSize">
     <size>
-     <width>62</width>
+     <width>82</width>
      <height>16777215</height>
     </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
    </property>
    <property name="text">
     <string>Password</string>
@@ -170,9 +187,6 @@
      <height>24</height>
     </size>
    </property>
-   <property name="styleSheet">
-    <string notr="true">color:white;</string>
-   </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
    </property>
@@ -182,13 +196,13 @@
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>50</width>
+     <width>62</width>
      <height>20</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>50</width>
+     <width>62</width>
      <height>0</height>
     </size>
    </property>
@@ -197,9 +211,6 @@
      <width>50</width>
      <height>16777215</height>
     </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
    </property>
    <property name="text">
     <string>Domain</string>
@@ -234,9 +245,8 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>15</pointsize>
-     <weight>75</weight>
      <bold>true</bold>
+     <stylestrategy>PreferDefault</stylestrategy>
     </font>
    </property>
    <property name="cursor">
@@ -244,10 +254,6 @@
    </property>
    <property name="contextMenuPolicy">
     <enum>Qt::NoContextMenu</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(73,90,255), stop: 1 rgb(73,90,255));
-border-radius: 2px;</string>
    </property>
    <property name="text">
     <string>Sign Up</string>
@@ -269,7 +275,7 @@ border-radius: 2px;</string>
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;privacy_policy&quot; style=&quot;color:rgb(154,164,174)&quot;&gt;Privacy Policy&lt;/a&gt; •  &lt;a href=&quot;terms_of_use&quot; style=&quot;color:rgb(154,164,174)&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;color: rgb(154, 164, 174);&quot;&gt;&lt;a href=&quot;privacy_policy&quot; style=&quot;color: rgb(154, 164, 174);&quot;&gt;Privacy Policy&lt;/a&gt;&lt;span style=&quot;color: rgb(154, 164, 174);&quot;&gt; • &lt;/span&gt;&lt;a href=&quot;terms_of_use&quot; style=&quot;color: rgb(154, 164, 174);&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -304,10 +310,9 @@ border-radius: 2px;</string>
    </property>
    <property name="font">
     <font>
-     <pointsize>15</pointsize>
-     <weight>75</weight>
      <italic>false</italic>
      <bold>true</bold>
+     <stylestrategy>PreferDefault</stylestrategy>
      <kerning>true</kerning>
     </font>
    </property>
@@ -319,10 +324,6 @@ border-radius: 2px;</string>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(21,162,123), stop: 1 rgb(21,162,123));
-border-radius: 2px;</string>
    </property>
    <property name="text">
     <string>Log In</string>
