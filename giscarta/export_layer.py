@@ -48,36 +48,109 @@ def _export_layer(self):
             def create_geometry(geom_type, coordinates):
                 if geom_type == 'Point':
                     return QgsGeometry.fromPointXY(QgsPointXY(coordinates[0], coordinates[1]))
-                if geom_type == 'MultiPoint':
-                    return QgsGeometry.fromPointXY(QgsPointXY(coordinates[0][0], coordinates[0][1]))
+                
+                elif geom_type == 'MultiPoint':
+                    points = [QgsPointXY(coord[0], coord[1]) for coord in coordinates]
+                    return QgsGeometry.fromMultiPointXY(points)
+                
                 elif geom_type == 'LineString':
-                    return QgsGeometry.fromPolylineXY([QgsPointXY(coord[0], coord[1]) for coord in coordinates])
+                    points = [QgsPointXY(coord[0], coord[1]) for coord in coordinates]
+                    return QgsGeometry.fromPolylineXY(points)
+                
                 elif geom_type == 'MultiLineString':
-                    return QgsGeometry.fromPolylineXY([QgsPointXY(coord[0], coord[1]) for coord in coordinates[0]])
+                    lines = []
+                    for line in coordinates:
+                        points = [QgsPointXY(coord[0], coord[1]) for coord in line]
+                        lines.append(points)
+                    return QgsGeometry.fromMultiPolylineXY(lines)
+                
                 elif geom_type == 'Polygon':
-                    return QgsGeometry.fromPolygonXY([[QgsPointXY(coord[0], coord[1]) for coord in coordinates[0]]])
+                    rings = []
+                    for ring in coordinates:
+                        points = [QgsPointXY(coord[0], coord[1]) for coord in ring]
+                        rings.append(points)
+                    return QgsGeometry.fromPolygonXY(rings)
+                
                 elif geom_type == 'MultiPolygon':
-                    return QgsGeometry.fromPolygonXY([[QgsPointXY(coord[0], coord[1]) for coord in coordinates[0][0]]])
+                    polygons = []
+                    for polygon in coordinates:
+                        rings = []
+                        for ring in polygon:
+                            points = [QgsPointXY(coord[0], coord[1]) for coord in ring]
+                            rings.append(points)
+                        polygons.append(rings)
+                    return QgsGeometry.fromMultiPolygonXY(polygons)
+                
+                else:
+                    print(f"Unknown geometry type: {geom_type}")
+                    return None
+                
+            def validate_and_fix_geometry(geom, geom_type):
+                if not geom:
+                    return None
+                
+                if geom.isGeosValid():
+                    return geom
+                                
+                try:
+                    fixed_geom = geom.makeValid()
+                    if fixed_geom:
+                        original_wkt = geom.wkt()
+                        fixed_wkt = fixed_geom.wkt()
+                        
+                        if original_wkt.split(' ')[0] == fixed_wkt.split(' ')[0]:
+                            return fixed_geom
+                        else:
+                            print(f"Geometry type changed from {geom.wktType()} to {fixed_geom.wktType()}")
+                            return geom
+                    
+                    return geom 
+                        
+                except Exception as e:
+                    print(f"Error fixing geometry: {e}")
+                    return geom 
+                return None
 
             features = []
+            valid_count = 0
+            invalid_count = 0
+            
             for feature in geojson_data['features']:
                 properties = feature['properties']
                 geom_type = feature['geometry']['type']
                 coordinates = feature['geometry']['coordinates']
                 geom = create_geometry(geom_type, coordinates)
-                new_feature = QgsFeature()
-                new_feature.setGeometry(geom)
-                new_feature.setAttributes(list(properties.values()))
-                features.append(new_feature)
-            lyr.dataProvider().addFeatures(features)
-            QgsProject.instance().addMapLayer(lyr)
+                
+                if geom:
+                    valid_geom = validate_and_fix_geometry(geom, geom_type)
+                else:
+                    valid_geom = geom
+                
+                if valid_geom:
+                    new_feature = QgsFeature()
+                    new_feature.setGeometry(valid_geom)
+                    new_feature.setAttributes(list(properties.values()))
+                    features.append(new_feature)
+                    valid_count += 1
+                else:
+                    print(f"Error with creation geometry: {geom_type}")
+                    invalid_count += 1
+            
+            if features:
+                lyr.dataProvider().addFeatures(features)
+                QgsProject.instance().addMapLayer(lyr)
 
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
-            msg.setText("Layer was loaded successfully")
-            msg.setWindowTitle("Status")
-            msg.setStandardButtons(QMessageBox.Ok)
-            returnValue = msg.exec()
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+                msg.setText(f"Layer loaded successfully: {valid_count} features")
+                msg.setWindowTitle("Status")
+                msg.exec()
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("No valid features found in the layer")
+                msg.setWindowTitle("Error")
+                msg.exec()
             
         else:
             print("error", response.status_code, response.text)
@@ -85,8 +158,7 @@ def _export_layer(self):
             msg.setIcon(QMessageBox.Warning)
             msg.setText(response.text)
             msg.setWindowTitle("Layer loading error")
-            msg.setStandardButtons(QMessageBox.Ok)
-            returnValue = msg.exec()
+            msg.exec()
     
     else: # for raster 
             msg = QMessageBox()
@@ -100,7 +172,7 @@ def _export_layer(self):
 def _export_click(self):
     msg = QMessageBox()
     msg.setIcon(QMessageBox.Question)
-    msg.setText("Are you sure you want to download a layer from GISCARTA?")
+    msg.setText("Are you sure you want to import a layer from GISCARTA?")
     msg.setWindowTitle("Saving a layer")
     msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
     returnValue = msg.exec()

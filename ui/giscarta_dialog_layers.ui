@@ -135,7 +135,7 @@
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="toolTip">
-         <string>Export selected layer</string>
+         <string>Import selected layer</string>
         </property>
         <property name="text">
          <string/>

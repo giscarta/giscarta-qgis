@@ -17,7 +17,16 @@ def _ai_layer(self):
         # check tarif
         headers = {"Authorization": f"Token {self.token}"}
         response = requests.get('https://map.giscarta.com/auth/users/me/', headers = headers)
-        tarif = response.json()['billing_plan']  
+        if "billing_plan" in response.json().keys():
+            tarif = response.json()['billing_plan']
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning) 
+            msg.setText('Geodata AI is available only for Pro subscription plan users. Please change the subscription plan <a href="https://map.giscarta.com/tariffs">https://map.giscarta.com/tariffs</a>')
+            msg.setWindowTitle("Plan restriction")
+            msg.setStandardButtons(QMessageBox.Ok)
+            returnValue = msg.exec()
+            return
         
         if tarif != 'Pro':
             msg = QMessageBox()
